@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>西伊豆モニターツアー</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#222;--sub:#6b6b66;--line:#e3e1d9;--all:#0f8b7d;--ht:#fff;--c0:#e07a1f;--c1:#2f6fd0;--c2:#8a5cc7;--c3:#d6456f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--card:#222426;--tx:#eee;--sub:#a0a09a;--line:#363836;--all:#3ec4b3;--ht:#111;--c0:#f0a35e;--c1:#7ba7f0;--c2:#b79af0;--c3:#f08aa9}}
+:root[data-theme="dark"]{--bg:#17181a;--card:#222426;--tx:#eee;--sub:#a0a09a;--line:#363836;--all:#3ec4b3;--ht:#111;--c0:#f0a35e;--c1:#7ba7f0;--c2:#b79af0;--c3:#f08aa9}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.5;max-width:1000px;margin-inline:auto;padding:0 12px 40px}
+header{padding:16px 4px 8px}
+h1{font-size:20px;margin:0}
+.sub{color:var(--sub);font-size:13px}
+.me{margin:10px 0;display:flex;gap:8px;align-items:center;font-size:14px;flex-wrap:wrap}
+select{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--tx);max-width:100%}
+nav{display:flex;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:6px 0;z-index:5;overflow-x:auto}
+nav button,.seg button{flex:1;white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--tx);padding:9px 10px;border-radius:10px;font:inherit;font-size:14px}
+nav button.on,.seg button.on{background:var(--all);color:var(--ht);border-color:var(--all)}
+.seg{display:flex;gap:6px;margin:10px 0 4px}.seg button{padding:6px 8px;font-size:13px}
+.dayt{font-weight:700;margin:16px 0 6px;font-size:16px}
+.sw{overflow-x:auto;padding-bottom:6px}
+.g{display:grid;gap:6px;grid-auto-rows:minmax(36px,auto)}
+.hd{font-size:12px;font-weight:700;text-align:center;border-radius:8px;padding:4px 2px;color:var(--ht);background:var(--all)}
+.time{position:sticky;left:0;background:var(--bg);z-index:2;font-size:12px;color:var(--sub);display:flex;flex-direction:column;line-height:1.3;padding-top:6px}
+.time b{font-size:14px;color:var(--tx)}
+.ev{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--all);border-radius:10px;padding:6px 9px;transition:opacity .2s;min-width:0}
+.ev.s0{border-left-color:var(--c0)}.ev.s1{border-left-color:var(--c1)}.ev.s2{border-left-color:var(--c2)}.ev.s3{border-left-color:var(--c3)}
+.ev.dim{opacity:.25}
+.t{font-weight:700;font-size:14px}
+.gds{margin-top:3px;display:flex;flex-wrap:wrap;gap:2px 8px;font-size:12px;color:var(--sub)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.card h3{margin:0 0 4px;font-size:16px}
+.card a{color:var(--all);font-size:13px}
+.meta{font-size:12px;color:var(--sub)}
+.note{background:var(--card);border:1px dashed var(--all);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:13px}
+.pk h3{font-size:15px;margin:14px 0 6px}
+label.item{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:6px;font-size:14px}
+label.item input{width:20px;height:20px}
+ul{margin:6px 0 0;padding-left:18px;font-size:13px}
+.legend{display:flex;gap:10px;font-size:12px;margin:6px 0;flex-wrap:wrap}
+.in{font-size:14px;font-weight:600}.n{font-size:12px;color:var(--sub)}
+.am{margin:8px 0}.al{font-size:12px;font-weight:700;color:var(--all);margin-bottom:3px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{background:var(--line);border-radius:14px;padding:2px 10px;font-size:12px}
+label.item.done .in{text-decoration:line-through;color:var(--sub)}
+</style>
+</head>
+<body>
+<header>
+<h1>🎣 西伊豆モニターツアー</h1>
+<div class="sub">2026年11月21日(土)〜22日(日)・3組（4班）・ガイド5名</div>
+<div class="me">表示を絞る： <select id="who"></select></div>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+
+<script>
+const GR=[["加瀬澤・父班","父"],["中嶋班","中嶋"],["徳留班","徳留"],["加瀬澤・母班","母"]];
+const GUIDES=["中川","松浦","三上","小村","小林"];
+const DAYS=[{"d":"11/21(土)","slots":[["10:15","10:30","龍海丸"],["10:30","14:00","龍海丸"],["14:00","14:45","龍海丸 / はんばた市場"],["14:45","16:00","龍海丸 / スーパー・宿"],["16:00","17:00","宿（わさびビレッジ）"],["17:00","18:30","宿（わさびビレッジ）"],["18:30","20:30","宿（わさびビレッジ）"]],"cells":[[0,0,0,"集合・顔合わせ"],[0,1,1,"釣り①"],[0,2,3,"釣り②"],[0,4,4,"移動"],[0,5,5,"BBQ準備"],[0,6,6,"BBQ"],[1,0,0,"集合・顔合わせ"],[1,1,1,"釣り①"],[1,2,2,"釣り魚の買取体験"],[1,3,3,"買い出し＆宿へ"],[1,4,4,"わさび収穫・薪割り"],[1,5,5,"ジビエ解体"],[1,6,6,"BBQ"],[2,0,0,"集合・顔合わせ"],[2,1,1,"釣り①"],[2,2,2,"釣り魚の買取体験"],[2,3,3,"買い出し＆宿へ"],[2,4,4,"わさび収穫・薪割り"],[2,5,5,"しいたけ収穫"],[2,6,6,"BBQ"],[3,0,0,"集合・顔合わせ"],[3,1,3,"西伊豆町巡り"],[3,4,4,"わさび収穫・薪割り"],[3,5,5,"しいたけ収穫"],[3,6,6,"BBQ"],[4,0,0,"集合・顔合わせ"],[4,1,1,"釣り①サポート"],[4,2,2,"釣り魚の買取体験"],[4,3,3,"買い出し＆宿へ"],[4,4,4,"わさび収穫・薪割り"],[4,5,5,"BBQ準備"],[4,6,6,"BBQ"],[5,0,0,"集合・顔合わせ"],[5,1,1,"釣り①サポート"],[5,2,2,"釣り魚の買取体験"],[5,3,3,"買い出し＆宿へ"],[5,4,4,"わさび収穫・薪割り"],[5,5,5,"解散"],[6,0,0,"集合・顔合わせ"],[6,1,1,"釣り①サポート"],[6,2,3,"釣り②サポート"],[6,4,4,"送迎？"],[6,5,5,"解散"],[7,0,0,"集合・顔合わせ"],[7,1,3,"加瀬澤母サポート"],[7,4,4,"わさび収穫・薪割り"],[7,5,5,"解散"]],"alt":{"slots":[["10:15","10:20","ポルテイズ"],["10:20","12:30","ポルテイズ"],["12:30","13:30","町内"],["13:30","15:00","仁科漁港"],["15:00","16:00","スーパー・宿"],["16:00","17:00","宿（わさびビレッジ）"],["17:00","18:00","宿（わさびビレッジ）"],["18:00","20:00","宿（わさびビレッジ）"]],"cells":[[0,1,1,"ジビエ解体"],[0,2,2,"ランチ"],[0,3,3,"お手当て体験"],[0,4,4,"買い出し＆宿へ"],[0,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[0,6,6,"BBQ準備"],[0,7,7,"BBQ"],[1,1,1,"ジビエ解体"],[1,2,2,"ランチ"],[1,3,3,"お手当て体験"],[1,4,4,"買い出し＆宿へ"],[1,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[1,6,6,"BBQ準備"],[1,7,7,"BBQ"],[2,1,1,"ジビエ解体"],[2,2,2,"ランチ"],[2,3,3,"お手当て体験"],[2,4,4,"買い出し＆宿へ"],[2,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[2,6,6,"BBQ準備"],[2,7,7,"BBQ"],[4,1,1,"ジビエ解体"],[4,2,2,"ランチ"],[4,3,3,"お手当て体験"],[4,4,4,"買い出し＆宿へ"],[4,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[4,6,6,"BBQ準備"],[4,7,7,"BBQ"],[5,1,1,"ジビエ解体"],[5,2,2,"ランチ"],[5,3,3,"お手当て体験"],[5,4,4,"買い出し＆宿へ"],[5,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[5,6,6,"解散"],[6,1,1,"ジビエ解体"],[6,2,2,"ランチ"],[6,3,3,"お手当て体験"],[6,4,4,"買い出し＆宿へ"],[6,5,5,"送迎？"],[6,6,6,"解散"],[3,1,1,"西伊豆町巡り？"],[3,2,2,"ランチ"],[3,3,3,"西伊豆町巡り？"],[3,4,4,"買い出し＆宿へ"],[3,5,5,"わさび収穫・薪割り・しいたけ収穫など"],[3,6,6,"BBQ準備"],[3,7,7,"BBQ"],[7,1,1,"西伊豆町巡り？"],[7,2,2,"ランチ"],[7,3,3,"西伊豆町巡り？"],[7,4,4,"買い出し＆宿へ"],[7,5,5,"わさび収穫・薪割り"],[7,6,6,"解散"],[0,0,0,"集合・顔合わせ"],[1,0,0,"集合・顔合わせ"],[2,0,0,"集合・顔合わせ"],[3,0,0,"集合・顔合わせ"],[4,0,0,"集合・顔合わせ"],[5,0,0,"集合・顔合わせ"],[6,0,0,"集合・顔合わせ"],[7,0,0,"集合・顔合わせ"]]}},{"d":"11/22(日)","slots":[["6:45","7:00","龍海丸"],["7:00","9:00","龍海丸"],["9:00","12:00","龍海丸 / ロッジモンド"],["12:00","13:00","龍海丸"],["13:00","13:30","はんばた市場"],["13:30","13:30",""]],"cells":[[0,0,0,"集合・顔合わせ"],[0,1,3,"釣り③"],[0,4,4,"買取体験"],[0,5,5,"解散"],[2,0,0,"集合・顔合わせ"],[2,1,3,"釣り③"],[2,4,4,"買取体験"],[2,5,5,"解散"],[4,0,0,"集合・顔合わせ"],[4,1,1,"移動等サポート"],[4,2,3,"西伊豆巡りサポート"],[4,4,4,"解散"],[8,0,0,"集合・顔合わせ"],[8,1,3,"釣り③サポート"],[8,4,4,"買取体験"],[8,5,5,"解散"],[1,1,1,"朝食・チェックアウト"],[1,2,2,"カヤック釣り"],[1,3,4,"温泉など"],[1,5,5,"解散"],[3,1,1,"朝食・チェックアウト"],[3,2,3,"西伊豆巡り"],[3,4,4,"買取体験"],[3,5,5,"解散"]]}];
+const PLACES=[
+{n:"龍海丸（釣り船）",d:"1日目 10:15・2日目 6:45の集合場所です。釣りは3時間のショート便で出船します。",q:"龍海丸 西伊豆町"},
+{n:"はんばた市場",d:"釣った魚の買取体験を行います。",q:"はんばた市場 西伊豆町"},
+{n:"わさびビレッジ（宿泊）",d:"宿泊は3部屋。わさび収穫・薪割り、しいたけ収穫、BBQの会場です。設備やアメニティは「持ち物」タブをご覧ください。",q:"わさびビレッジ 西伊豆"},
+{n:"ロッジモンド",d:"指定された場所に集合"},
+{n:"ポルテイズ（荒天時）",d:"荒天で釣りができない場合、1日目のジビエ解体体験（10:15〜12:30）の会場です。",q:"ポルテイズ 西伊豆町"},
+{n:"仁科漁港（荒天時）",d:"荒天で釣りができない場合、1日目のお手当て体験（13:30〜15:00）の場所です。",q:"仁科漁港 西伊豆町"}];
+const PACK=[
+{g:"🎣 釣り",i:[["防寒具","暑い分には脱げば良いので、とにかく厳重に！"],["滑りにくく汚れて良い靴","スパイクはNGです。"],["酔い止め","大人はアネロン、子供はセンパアがおすすめ。乗船の1時間以上前に飲んでください！"],["昼食と飲み物","トイレは船に洋式個室があります。"],["クーラーボックス","魚を持ち帰る用。（船上は無料レンタルあり。近くで発泡スチロール箱の販売もあります。）"]]},
+{g:"🌱 わさび抜き体験",i:[["お子さん用の長靴","大人用はレンタルがあります。"]]},
+{g:"♨ 日帰り温泉",i:[["タオル","貸し出しがないところもあるので、日帰り温泉に寄る場合は念のためあっても良いかも。"]]}];
+const AMEN=[["室内設備","ミニキッチン・冷蔵庫・電子レンジ・ケトル・ユニットバス・トイレ・冷暖房・大型液晶TV・空気清浄機・ダイソンの扇風機・床暖房・電気暖炉"],["アメニティ","バスタオル・フェイスタオル・歯ブラシセット・シャンプー・リンス・ボディソープ・洗顔ソープ・化粧水・乳液・綿棒・カミソリ・ブラシ・パジャマ・ドライヤー"],["キッチン用品","ダッチオーブン・フライパン・包丁・まな板・お皿・コップ・トング・お箸・わさび用鋼鮫"],["屋外設備","テーブルセット・アウトドアキッチン・薪露天風呂（無料）・BBQグリル（無料）"]];
+
+const $=s=>document.querySelector(s);
+let tab="sch",mode="g",sel="",scn="fish";
+try{sel=localStorage.getItem("sel")||""}catch(e){}
+const chk=(()=>{try{return JSON.parse(localStorage.getItem("chk")||"{}")}catch(e){return{}}})();
+const dot=g=>`<i class="dot" style="background:var(--c${g})"></i>`;
+
+// ガイドがどの班につくかを、同じ時間帯・同じ内容から推定
+function inf(d){d.cells=d.cells.map(a=>({c:a[0],r0:a[1],r1:a[2],t:a[3],gs:[],gd:[]}));
+ const ov=(a,b)=>a.r0<=b.r1&&b.r0<=a.r1;
+ d.cells.filter(x=>x.c>=4).forEach(gc=>{const base=gc.t.replace(/サポート$/,"");
+  d.cells.filter(x=>x.c<4&&ov(x,gc)&&(x.t===base||(base==="加瀬澤母"&&x.c===3))).forEach(x=>{gc.gs.push(x.c);x.gd.push(GUIDES[gc.c-4])})})}
+DAYS.forEach(d=>{inf(d);if(d.alt)inf(d.alt)});
+const cur=d=>scn==="rain"&&d.alt?d.alt:d;
+
+$("#who").innerHTML='<option value="">全体を表示</option><optgroup label="班で絞る">'+GR.map((g,i)=>`<option value="g${i}" ${sel==="g"+i?"selected":""}>${g[0]}</option>`).join("")+'</optgroup><optgroup label="ガイドで絞る">'+GUIDES.map(n=>`<option value="m${n}" ${sel==="m"+n?"selected":""}>${n}ガイド</option>`).join("")+"</optgroup>";
+$("#who").onchange=e=>{sel=e.target.value;try{localStorage.setItem("sel",sel)}catch(x){}render()};
+const TABS=[["sch","📅 予定"],["pl","📍 場所"],["pk","🎒 持ち物"],["gp","👥 班・ガイド"]];
+function nav(){$("#nav").innerHTML=TABS.map(t=>`<button class="${t[0]===tab?"on":""}" data-t="${t[0]}">${t[1]}</button>`).join("");
+ $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()})}
+
+function rel(x){if(!sel)return true;
+ if(sel[0]==="g"){const g=+sel[1];return x.c<4?x.c===g:x.gs.includes(g)}
+ const n=sel.slice(1);return x.c<4?x.gd.includes(n):GUIDES[x.c-4]===n}
+function card(x,ci){const cls=x.c<4?"s"+x.c:"";let sub="";
+ if(x.c<4&&x.gd.length)sub=`<div class="gds">ガイド：${x.gd.join("・")}</div>`;
+ else if(x.c>=4&&x.gs.length)sub=`<div class="gds">${x.gs.map(g=>`<span>${dot(g)}${GR[g][1]}</span>`).join("")}</div>`;
+ return `<div class="ev ${cls}${rel(x)?"":" dim"}" style="grid-row:${x.r0+2}/${x.r1+3};grid-column:${ci+2}"><div class="t">${x.t}</div>${sub}</div>`}
+function scs(){return `<div class="seg">${[["fish","🎣 21日：釣りができる場合"],["rain","🌧 21日：荒天（釣りなし）"]].map(m=>`<button class="${scn===m[0]?"on":""}" data-s="${m[0]}">${m[1]}</button>`).join("")}</div>`}
+function sch(){
+ const cols=mode==="g"?[0,1,2,3]:mode==="m"?[4,5,6,7,8]:[0,1,2,3,4,5,6,7,8];
+ const name=c=>c<4?GR[c][0]:GUIDES[c-4]+"ガイド";
+ let h=scs();
+ h+=`<div class="note">⚠ 21日は「釣りができる場合」と「荒天で釣りができない場合」の2パターンです。前日に判断します。22日はどちらも共通です。</div><div class="sub">横にスワイプすると全列が見られます。時間は目安です。</div>`;
+ if(mode!=="m")h+=`<div class="legend">${GR.map((g,i)=>`<span>${dot(i)}${g[0]}</span>`).join("")}</div>`;
+ DAYS.forEach(D=>{const d=cur(D),n=cols.length;
+  h+=`<div class="dayt">${D.d}${D.alt?`<span class="sub">　${scn==="rain"?"🌧 荒天の場合":"🎣 釣りができる場合"}</span>`:""}</div><div class="sw"><div class="g" style="grid-template-columns:78px repeat(${n},minmax(112px,1fr));min-width:${78+n*118}px"><div class="time" style="grid-row:1"></div>`+
+   cols.map((c,i)=>`<div class="hd" style="grid-row:1;grid-column:${i+2};${c<4?`background:var(--c${c})`:""}">${name(c)}</div>`).join("")+
+   d.slots.map((s,i)=>`<div class="time" style="grid-row:${i+2}"><b>${s[0]}</b>${s[0]!==s[1]?`<span>〜${s[1]}</span>`:""}${s[2]?`<span>${s[2]}</span>`:""}</div>`).join("")+
+   d.cells.filter(x=>cols.includes(x.c)).map(x=>card(x,cols.indexOf(x.c))).join("")+`</div></div>`});
+ return h}
+function pl(){return PLACES.map(p=>`<div class="card"><h3>${p.n}</h3><div>${p.d}</div>${p.q?`<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.q)}" target="_blank" rel="noopener">地図で見る →</a>`:""}</div>`).join("")}
+function pk(){const all=PACK.flatMap(g=>g.i.map(x=>x[0])),n=all.filter(i=>chk[i]).length;
+ return `<div class="pk"><div class="sub">準備できた：${n} / ${all.length}（チェックはこの端末に保存されます）</div>`+
+ PACK.map(g=>`<h3>${g.g}</h3>`+g.i.map(x=>`<label class="item ${chk[x[0]]?"done":""}"><input type="checkbox" data-i="${x[0]}" ${chk[x[0]]?"checked":""}><div><div class="in">${x[0]}</div><div class="n">${x[1]}</div></div></label>`).join("")).join("")+
+ `<h3>🏠 宿（わさびビレッジ）に備えてあるもの</h3><div class="card">`+AMEN.map(a=>`<div class="am"><div class="al">${a[0]}</div><div class="chips">${a[1].split("・").map(s=>`<span class="chip">${s}</span>`).join("")}</div></div>`).join("")+`<div class="note">食材・飲み物・調味料の提供はありません。</div></div></div>`}
+function lines(c){let h="";DAYS.forEach(D=>{const d=cur(D);const L=d.cells.filter(x=>x.c===c).sort((a,b)=>a.r0-b.r0);if(!L.length)return;
+ h+=`<div class="meta" style="margin-top:8px"><b>${D.d}${D.alt?(scn==="rain"?"（荒天の場合）":"（釣りができる場合）"):""}</b></div><ul>`+L.map(x=>{const s=d.slots[x.r0][0],e=d.slots[x.r1][1];
+  const ex=c<4?(x.gd.length?`（ガイド：${x.gd.join("・")}）`:""):(x.gs.length?`（${x.gs.map(g=>GR[g][1]).join("・")}）`:"");
+  return `<li>${s}${e!==s?"〜"+e:""}　${x.t}${ex}</li>`}).join("")+"</ul>"});return h}
+function gp(){
+ return scs()+`<h3 style="margin:14px 0 6px">班ごとの予定</h3>`+GR.map((g,i)=>`<div class="card" style="border-left:5px solid var(--c${i})"><h3>${g[0]}</h3>${lines(i)}</div>`).join("")+
+ `<h3 style="margin:14px 0 6px">ガイドの担当</h3><div class="note">ガイドは、地元の人との接点づくり、西伊豆のご案内、2日目の相談などをサポートします。</div>`+
+ GUIDES.map((n,i)=>`<div class="card"><h3>${n}ガイド</h3>${lines(i+4)}</div>`).join("")}
+function render(){nav();$("#main").innerHTML={sch,pl,pk,gp}[tab]();
+ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{scn=b.dataset.s;render()});
+ document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;render()});
+ document.querySelectorAll("input[data-i]").forEach(c=>c.onchange=()=>{chk[c.dataset.i]=c.checked;try{localStorage.setItem("chk",JSON.stringify(chk))}catch(e){}render()})}
+render();
+</script>
+</body>
+</html>
